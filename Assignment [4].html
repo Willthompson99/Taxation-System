@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Includes the Prism.js library for syntax highlighting when writing codes -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-java.min.js"></script>
+
+  <title>Assignment [4]</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap">
+
+  <style>
+        body 
+        {
+            font-family: 'Noto Sans TC', 'Microsoft JhengHei', 'Ubuntu', 'Nunito', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+        header, footer 
+        {
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            padding: 1rem 0;
+        }
+        header h1, footer p 
+        {
+            margin: 0;
+        }
+        section 
+        {
+            padding: 2rem;
+            margin: 1rem auto;
+            max-width: 1000px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            font-size: 20px
+        }
+        h2 
+        {
+            color: #007bff;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 0.5rem;
+        }
+        h3 
+        {
+            color: #ff0000;
+            border-bottom: 2px solid #ff0000;
+            padding-bottom: 0.5rem;
+        }
+        .table-container 
+        {
+            overflow-x: auto;
+            text-align: justify;
+        }
+        table 
+        {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        th, td 
+        {
+            padding: 0.75rem;
+            text-align: center; /* Center the text */
+            border: 1px solid #dee2e6;
+        }
+        th 
+        {
+            background-color: #007bff;
+            color: #fff;
+        }
+        ul 
+        {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+        }
+        ul ul 
+        {
+            list-style-type: circle;
+        }
+        a 
+        {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover 
+        {
+            text-decoration: underline;
+        }
+        .highlighted 
+        {
+            background-color: #ffeb3b;
+            padding: 0 0.25rem;
+        }
+        .colored-word 
+        {
+            color: #dc3545;
+        }
+        .center-container 
+        {
+            text-align: center;
+        }
+        .text-container 
+        {
+            text-align: justify;
+            margin-top: 1rem;
+        }
+        .demo-link 
+        {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        /* Below is for styling the class diagrams */
+        .class-diagram 
+        {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .class-box 
+        {
+            border: 1px solid #000;
+            margin: 20px;
+            padding: 10px;
+            width: 900px;
+            text-align: center;
+        }
+        .class-box h2, .class-box h3 
+        {
+            margin: 0;
+            padding: 5px;
+            background-color: #f0f0f0;
+        }
+        .class-box ul 
+        {
+            list-style-type: none;
+            padding: 0;
+            font-size: 18px;            /* Adjust font size for list items inside class boxes */
+            text-align: left;
+        }
+        .class-box ul li 
+        {
+            padding: 5px 0;
+        }
+        .arrow 
+        {
+            width: 0;   /* Ensure the arrow is a line */
+            height: 0px;
+            border-style: solid;
+            border-width: 10px 10px 0 10px; /* Adjust thickness of the arrow and anchor as needed */
+            border-color: #000 transparent transparent transparent; /* Adjust color to match your design */
+            margin: 0 auto; /* Center horizontally */
+            transform: rotate(180deg); 
+         }
+         
+         /* Below is for styling the csv file columns */
+         .state { color: blue; }
+        .income { color: green; }
+        .property { color: orange; }
+        .expenses { color: purple; }
+        .income-tax { color: red; }
+        .property-tax { color: brown; }
+        .total-tax { color: magenta; }
+        .deductions { color: rgb(173, 157, 237); }
+        .tax-return { color: teal; }
+        .tax-withholding { color: navy; }
+  </style>
+</head>
+
+<body>
+    <header>
+        <div class="center-container">
+            <h1>Taxation System</h1>
+        </div>
+    </header>
+    
+    <main>
+        <section id="Overview">
+            <h2>Overview</h2>
+                <div class="text-container">
+                    <p>A tax calculation system designed to handle different tax rates for different states and calculate various tax-related figures such as income tax, property tax, total tax, tax return, and tax withholding.</p>
+                </div>
+        </section>
+        
+        <section id="Classes">
+            <h2>Classes</h2>
+            <div class="class-diagram">
+                <div class="class-box">
+                    <h2>TaxCalculator</h2>
+                    <h3>Attributes</h3>
+                        <ul>
+                            <li>- stateName: <span style="color: blue;">String</span></li>
+                            <li>- incomeTaxRate: <span style="color: blue;">double</span></li>
+                            <li>- propertyTaxRate: <span style="color: blue;">double</span></li>
+                            <li>- deductionRate: <span style="color: blue;">double</span></li>
+                        </ul>
+                    <h3>Methods</h3>
+                        <ul>
+                            <li>+ <span style="color: brown;">TaxCalculator</span>(stateName: <span style="color: blue;">String</span>, incomeTaxRate: <span style="color: blue;">double</span>, propertyTaxRate: <span style="color: blue;">double</span>, deductionRate: <span style="color: blue;">double</span>)</li>
+                            <li>+ <span style="color: brown;">getStateName</span>(): <span style="color: blue;">String</span></li>
+                            <li>+ <span style="color: brown;">getIncomeTaxRate</span>(): <span style="color: blue;">double</span></li>
+                            <li>+ <span style="color: brown;">getPropertyTaxRate</span>(): <span style="color: blue;">double</span></li>
+                            <li>+ <span style="color: brown;">getDeductionRate</span>(): <span style="color: blue;">double</span></li>
+                            <li>+ <span style="color: brown;">calculateIncomeTax</span>(income: <span style="color: blue;">double</span>): <span style="color: blue;">double</span></li>
+                            <li>+ <span style="color: brown;">calculatePropertyTax</span>(propertyValue: <span style="color: blue;">double</span>): <span style="color: blue;">double</span></li>
+                            <li>+ <span style="color: brown;">calculateTotalTax</span>(income: <span style="color: blue;">double</span>, propertyValue: <span style="color: blue;">double</span>): <span style="color: blue;">double</span></li>
+                            <li>+ <span style="color: brown;">calculateTaxReturn</span>(totalTaxPaid: <span style="color: blue;">double</span>, deductions: <span style="color: blue;">double</span>): <span style="color: blue;">double</span></li>
+                        </ul>
+                </div>
+        
+                <div class="arrow"></div>
+        
+                <div class="class-box">
+                    <h2>StateTax</h2>
+                    <h3>Attributes</h3>
+                        <ul>
+                            <li>(Inherited from TaxCalculator)</li>
+                        </ul>
+                    <h3>Methods</h3>
+                        <ul>
+                            <li>+ <span style="color: brown;">StateTax</span>(stateName: <span style="color: blue;">String</span>, incomeTaxRate: <span style="color: blue;">double</span>, propertyTaxRate: <span style="color: blue;">double</span>, deductionRate: <span style="color: blue;">double</span>)</li>
+                            <li>+ <span style="color: brown;">calculateTaxWithholding</span>(grossIncome: <span style="color: blue;">double</span>): <span style="color: blue;">double</span></li>
+                        </ul>
+                </div>
+        
+                <div class="class-box">
+                    <h2>TaxNavigator</h2>
+                    <h3>Methods</h3>
+                        <ul>
+                            <li>+ <span style="color: brown;">main</span>(args: <span style="color: blue;">String</span>[]): <span style="color: blue;">void</span></li>
+                        </ul>
+                </div>
+            </div>
+
+            <p><strong>Note</strong>: You may define additional methods beyond those listed above if needed.</p>
+        </section>        
+
+        <section id="Implementation Requirements">
+            <h2>Implementation Requirements</h2>
+                <div class="text-container">
+                    <ul>
+                        <li>All classes, <strong>TaxCalculator</strong>, <strong>StateTax</strong>, and <strong>TaxNavigator</strong>, should be created to represent the Taxation System.</li>
+                        <li>Implement all instance fields and methods required to manage the taxation system.</li>
+                        <li><strong>Utilize the Superclass Constructor for Initializing Instance Fields in the Subclass</strong>:</li>
+                            <ul>In OOP, it is essential to utilize the constructor of the superclass when initializing instance fields in the subclass constructor. This practice ensures that the fields inherited from the superclass are properly initialized, maintaining the integrity and consistency of the object's state. By calling the superclass constructor using <strong>super()</strong>, the subclass can leverage the initialization logic defined in the superclass, which often includes setting up fundamental attributes that are crucial for the object's correct functionality. This not only promotes code reuse but also simplifies maintenance and readability, as the initialization logic is centralized in the superclass constructor. Moreover, it ensures that any changes in the initialization process in the superclass automatically propagate to the subclass, reducing the risk of errors and inconsistencies.</ul>
+                        <li><strong>Utilize the Following Logic of the Loop Statement in the Main Method</strong>:</li>
+                            <ul>The main method of the <strong>TaxNavigator</strong> class contains a loop that processes each line of input from the "<strong>TaxData.csv</strong>" file, calculating various tax-related figures and writing the results to the "<strong>OutputTaxData.csv</strong>" file. The loop begins by reading each line of the input file, skipping the header line. For each subsequent line, the loop splits the line into individual attributes, such as state option, income, property value, and expenses. Based on the state option, it creates an appropriate <strong>StateTax</strong> object with predefined tax rates. The loop then calculates the income tax, property tax, total tax, deductions, tax return, and tax withholding using the methods defined in the<strong>TaxCalculator</strong> and <strong>StateTax</strong> classes. These calculated values are appended to the original record and written to the output file. This loop ensures that all records in the input file are processed sequentially, and the corresponding tax calculations are efficiently performed and stored in the output file.</ul>
+                        <li><strong>Calculating tax values should not involve checking individual attributes per line and finding the tax values directly from the file data. Instead, create StateTax objects from the file data lines.</strong></li>                    
+                    </ul>
+                </div>
+        </section>
+        
+        <section>
+            <h2>Instance Field Values for Each State</h2>
+                <div class="text-container">
+                    <ul>
+                        <li>California:</li>
+                            <ul>
+                                <li><strong>State Name</strong> = "California"</li>
+                                <li><strong>Income Tax Rate</strong> = 0.093</li>
+                                <li><strong>Property Tax Rate</strong> = 0.007</li>
+                                <li><strong>Deduction Rate</strong> = 0.175</li>
+                            </ul>
+                        <li>New York:</li>
+                            <ul>
+                                <li><strong>State Name</strong> = "New York"</li>
+                                <li><strong>Income Tax Rate</strong> = 0.0685</li>
+                                <li><strong>Property Tax Rate</strong> = 0.04</li>
+                                <li><strong>Deduction Rate</strong> = 0.2</li>
+                            </ul>
+                </div>
+        </section>
+
+        <section>
+            <h2>Tax Calculation Formulas</h2>
+                <div class="text-container">
+                    <ul>
+                        <li><strong>Income Tax</strong> = Income * Income Tax Rate</li>
+                        <li><strong>Property Tax</strong> = Property Value * Property Tax Rate</li>
+                        <li><strong>Total Tax</strong> = Income Tax + Property Tax</li>
+                        <li><strong>Tax Deductions</strong> = Expenses * Deduction Rate</li>
+                        <li><strong>Tax Return</strong> = Total Tax Paid - Deductions</li>
+                        <li>There are differences in the calculation of tax withholding between California and New York:</li>
+                            <ul>
+                                <li>California -> <strong>Tax Withholding</strong> = Income Tax Rate * Gross Income - (allowances * 100). Assume the allowances in California is 2</li>
+                                <li>New York -> <strong>Tax Withholding</strong> = Income Tax Rate * Gross Income - 500</li>
+                            </ul>
+                </div>
+        </section>
+    
+        <section id="Code Template">
+            <h2>Code Template</h2>
+                <div class="text-container">
+                    <p>Copy the following Java code template to your IDE and complete the provided code:</p>
+                    <pre><code class="language-java">/**********************************************************************************************************************************************
+* This program is a tax calculation system designed to handle different tax rates for different states
+* and calculate various tax-related figures such as income tax, property tax, total tax, tax return, 
+* and tax withholding. It reads data from an input CSV file, processes it, and writes the results 
+* to an output CSV file.
+*
+* Classes:
+* 1. TaxCalculator:
+*    - Represents the base class for calculating various types of taxes.
+*    - Attributes:
+*      - stateName: Name of the state.
+*      - incomeTaxRate: Rate of income tax.
+*      - propertyTaxRate: Rate of property tax.
+*      - deductionRate: Rate of deductions.
+*    - Methods:
+*      - getStateName(): Returns the state name.
+*      - getIncomeTaxRate(): Returns the income tax rate.
+*      - getPropertyTaxRate(): Returns the property tax rate.
+*      - getDeductionRate(): Returns the deduction rate.
+*      - calculateIncomeTax(double income): Calculates the income tax based on the income.
+*      - calculatePropertyTax(double propertyValue): Calculates the property tax based on the property value.
+*      - calculateTotalTax(double income, double propertyValue): Calculates the total tax based on the income and property values.
+*      - calculateTaxReturn(double totalTaxPaid, double deductions): Calculates the tax return based on the total tax paid and deductions.
+*
+* 2. StateTax:
+*    - Inherits from TaxCalculator.
+*    - Used to handle state-specific tax calculations.
+*    - Methods:
+*      - calculateTaxWithholding(double grossIncome): Calculates the tax withholding based on the gross income and specific state rules.
+*
+* Main Class (TaxNavigator):
+*    - The main driver class to run the tax calculation process.
+*    - Reads input data from "TaxData.csv".
+*    - Processes the data by calculating various tax-related figures.
+*    - Writes the output data to "OutputTaxData.csv".
+*
+* Example Usage:
+*    - Ensure "TaxData.csv" is present in the program's directory.
+*    - Run the program to generate "OutputTaxData.csv" with the calculated tax information.
+*
+* Input File (TaxData.csv) Format:
+*    - Header: StateOption, Income, PropertyValue, Expenses
+*
+* Output File (OutputTaxData.csv) Format:
+*    - Header: StateOption, Income, PropertyValue, Expenses, IncomeTax, PropertyTax, TotalTax, Deductions, TaxReturn, TaxWithholding
+*
+* Notes:
+*    - Ensure appropriate tax rates and deduction rates are defined in the StateTax constructor based on the state.
+*    - This implementation is a simplified version and may need enhancements for handling real-world tax scenarios.
+*
+* Exceptions:
+*    - The program handles IOExceptions related to file operations.
+*
+*@auther Type Your Name Here
+**********************************************************************************************************************************************/
+
+import java.nio.file.StandardOpenOption; 
+import java.util.Scanner; 
+import java.nio.file.Files; 
+import java.nio.file.Path; 
+import java.io.IOException; 
+
+// TaxCalculator class to calculate various taxes and returns
+class TaxCalculator 
+{
+    // Declare Instance Fields
+    
+
+    // A Constructor to initialize TaxCalculator object with state name and tax rates
+    
+
+    // Getter for state name
+    
+
+    // Getter for income tax rate
+    
+
+    // Getter for property tax rate
+    
+
+    // Getter for deduction rate
+    
+
+    // Method to calculate income tax based on income
+    
+
+    // Method to calculate property tax based on property value
+    
+
+    // Method to calculate total tax based on income and property values
+    
+
+    // Method to calculate tax return based on total tax paid and deductions
+    
+}
+
+// StateTax class extending TaxCalculator to handle state-specific tax calculations
+class StateTax extends TaxCalculator
+{
+    // A Constructor initializing StateTax objects with predefined tax rates
+    
+
+    // Method to calculate tax withholding based on gross income
+    
+}
+
+// TaxNavigator class to run the program
+public class TaxNavigator
+{
+    public static void main(String[] args) throws IOException
+    {
+        // Define file paths for input and output
+        
+
+        // Create output file if it doesn't exist and write the header line
+        
+        
+        // Scanner to read input file
+
+
+        // A Loop statement to read the input CSV data, starting from the second line (skipping the header line), and write the calculated tax values to the output CSV file
+        
+
+        // Close the file scanner
+        
+    }
+}</code></pre>
+                    <p>Download the provided <strong>TaxData.csv</strong> file to your computer and place it in the same directory as the <strong>TaxNavigator.java</strong> file.</p>
+                </div>
+        </section>
+
+        <section>
+            <h2>Sample Output</h2>
+                <div class="text-container">
+                    <p>The output is a csv file named "<strong>OutputTaxData.csv</strong>". Below is a sample output representing the content of the output file:</p>
+                        <pre style="color: rgb(115, 66, 66); font-family: 'Ubuntu'; font-size: 16px; font-weight: bold;">
+    <span class="state">StateOption</span>,<span class="income">Income</span>,<span class="property">PropertyValue</span>,<span class="expenses">Expenses</span>,<span class="income-tax">IncomeTax</span>,<span class="property-tax">PropertyTax</span>,<span class="total-tax">TotalTax</span>,<span class="deductions">Deductions</span>,<span class="tax-return">TaxReturn</span>,<span class="tax-withholding">TaxWithholding</span>
+    <span class="state">California</span>,<span class="income">60000</span>,<span class="property">300000</span>,<span class="expenses">15000</span>,<span class="income-tax">5580.0</span>,<span class="property-tax">2250.0</span>,<span class="total-tax">7830.0</span>,<span class="deductions">2625.0</span>,<span class="tax-return">5205.0</span>,<span class="tax-withholding">5380.0</span>
+    <span class="state">New York</span>,<span class="income">75000</span>,<span class="property">275000</span>,<span class="expenses">18000</span>,<span class="income-tax">5137.5</span>,<span class="property-tax">11000.0</span>,<span class="total-tax">16137.5</span>,<span class="deductions">3600.0</span>,<span class="tax-return">12537.5</span>,<span class="tax-withholding">4637.5</span>
+    <span class="state">California</span>,<span class="income">70000</span>,<span class="property">250000</span>,<span class="expenses">20000</span>,<span class="income-tax">6510.0</span>,<span class="property-tax">1875.0</span>,<span class="total-tax">8385.0</span>,<span class="deductions">3500.0</span>,<span class="tax-return">4885.0</span>,<span class="tax-withholding">6310.0</span>
+    <span class="state">California</span>,<span class="income">80000</span>,<span class="property">200000</span>,<span class="expenses">18000</span>,<span class="income-tax">7440.0</span>,<span class="property-tax">1500.0</span>,<span class="total-tax">8940.0</span>,<span class="deductions">3150.0</span>,<span class="tax-return">5790.0</span>,<span class="tax-withholding">7240.0</span>
+    <span class="state">California</span>,<span class="income">50000</span>,<span class="property">350000</span>,<span class="expenses">12000</span>,<span class="income-tax">4650.0</span>,<span class="property-tax">2625.0</span>,<span class="total-tax">7275.0</span>,<span class="deductions">2100.0</span>,<span class="tax-return">5175.0</span>,<span class="tax-withholding">4450.0</span>
+    <span class="state">New York</span>,<span class="income">85000</span>,<span class="property">230000</span>,<span class="expenses">20000</span>,<span class="income-tax">5822.5</span>,<span class="property-tax">9200.0</span>,<span class="total-tax">15022.5</span>,<span class="deductions">4000.0</span>,<span class="tax-return">11022.5</span>,<span class="tax-withholding">5322.5</span>
+    <span class="state">New York</span>,<span class="income">60000</span>,<span class="property">400000</span>,<span class="expenses">14000</span>,<span class="income-tax">4110.0</span>,<span class="property-tax">16000.0</span>,<span class="total-tax">20110.0</span>,<span class="deductions">2800.0</span>,<span class="tax-return">17310.0</span>,<span class="tax-withholding">3610.0</span>
+    <span class="state">California</span>,<span class="income">90000</span>,<span class="property">150000</span>,<span class="expenses">22000</span>,<span class="income-tax">8370.0</span>,<span class="property-tax">1125.0</span>,<span class="total-tax">9495.0</span>,<span class="deductions">3849.9999999999995</span>,<span class="tax-return">5645.0</span>,<span class="tax-withholding">8170.0</span>
+    <span class="state">New York</span>,<span class="income">65000</span>,<span class="property">320000</span>,<span class="expenses">16000</span>,<span class="income-tax">4452.5</span>,<span class="property-tax">12800.0</span>,<span class="total-tax">17252.5</span>,<span class="deductions">3200.0</span>,<span class="tax-return">14052.5</span>,<span class="tax-withholding">3952.5</span>
+    <span class="state">New York</span>,<span class="income">95000</span>,<span class="property">200000</span>,<span class="expenses">22000</span>,<span class="income-tax">6507.500000000001</span>,<span class="property-tax">8000.0</span>,<span class="total-tax">14507.5</span>,<span class="deductions">4400.0</span>,<span class="tax-return">10107.5</span>,<span class="tax-withholding">6007.500000000001</span>
+    <span class="state">California</span>,<span class="income">60000</span>,<span class="property">300000</span>,<span class="expenses">15000</span>,<span class="income-tax">5580.0</span>,<span class="property-tax">2250.0</span>,<span class="total-tax">7830.0</span>,<span class="deductions">2625.0</span>,<span class="tax-return">5205.0</span>,<span class="tax-withholding">5380.0</span>
+    <span class="state">New York</span>,<span class="income">75000</span>,<span class="property">275000</span>,<span class="expenses">18000</span>,<span class="income-tax">5137.5</span>,<span class="property-tax">11000.0</span>,<span class="total-tax">16137.5</span>,<span class="deductions">3600.0</span>,<span class="tax-return">12537.5</span>,<span class="tax-withholding">4637.5</span>
+    <span class="state">California</span>,<span class="income">70000</span>,<span class="property">250000</span>,<span class="expenses">20000</span>,<span class="income-tax">6510.0</span>,<span class="property-tax">1875.0</span>,<span class="total-tax">8385.0</span>,<span class="deductions">3500.0</span>,<span class="tax-return">4885.0</span>,<span class="tax-withholding">6310.0</span>
+    <span class="state">California</span>,<span class="income">80000</span>,<span class="property">200000</span>,<span class="expenses">18000</span>,<span class="income-tax">7440.0</span>,<span class="property-tax">1500.0</span>,<span class="total-tax">8940.0</span>,<span class="deductions">3150.0</span>,<span class="tax-return">5790.0</span>,<span class="tax-withholding">7240.0</span>
+    <span class="state">California</span>,<span class="income">50000</span>,<span class="property">350000</span>,<span class="expenses">12000</span>,<span class="income-tax">4650.0</span>,<span class="property-tax">2625.0</span>,<span class="total-tax">7275.0</span>,<span class="deductions">2100.0</span>,<span class="tax-return">5175.0</span>,<span class="tax-withholding">4450.0</span>
+    <span class="state">New York</span>,<span class="income">85000</span>,<span class="property">230000</span>,<span class="expenses">20000</span>,<span class="income-tax">5822.5</span>,<span class="property-tax">9200.0</span>,<span class="total-tax">15022.5</span>,<span class="deductions">4000.0</span>,<span class="tax-return">11022.5</span>,<span class="tax-withholding">5322.5</span>
+    <span class="state">New York</span>,<span class="income">60000</span>,<span class="property">400000</span>,<span class="expenses">14000</span>,<span class="income-tax">4110.0</span>,<span class="property-tax">16000.0</span>,<span class="total-tax">20110.0</span>,<span class="deductions">2800.0</span>,<span class="tax-return">17310.0</span>,<span class="tax-withholding">3610.0</span>
+    <span class="state">California</span>,<span class="income">90000</span>,<span class="property">150000</span>,<span class="expenses">22000</span>,<span class="income-tax">8370.0</span>,<span class="property-tax">1125.0</span>,<span class="total-tax">9495.0</span>,<span class="deductions">3849.9999999999995</span>,<span class="tax-return">5645.0</span>,<span class="tax-withholding">8170.0</span>
+    <span class="state">New York</span>,<span class="income">65000</span>,<span class="property">320000</span>,<span class="expenses">16000</span>,<span class="income-tax">4452.5</span>,<span class="property-tax">12800.0</span>,<span class="total-tax">17252.5</span>,<span class="deductions">3200.0</span>,<span class="tax-return">14052.5</span>,<span class="tax-withholding">3952.5</span>
+    <span class="state">New York</span>,<span class="income">95000</span>,<span class="property">200000</span>,<span class="expenses">22000</span>,<span class="income-tax">6507.500000000001</span>,<span class="property-tax">8000.0</span>,<span class="total-tax">14507.5</span>,<span class="deductions">4400.0</span>,<span class="tax-return">10107.5</span>,<span class="tax-withholding">6007.500000000001</span>
+                        </pre>
+                    <p>Click <a href="https://cs.okstate.edu/~aalthou/AssignmentDemo/Assignment[4].mp4">here</a> to watch a short demonstration of the Taxation System and its various operations.</p>
+                </div>
+        </section>
+
+        <section id="Submission">
+            <h2>Submission</h2>
+               <div class="text-container">
+                    <ul>
+                        <li>Complete the implementation and submit the <span class="colored-word">TaxNavigator.java</span> file on Canvas by <strong>Friday, October 4, 2024, 11:59 pm</strong>. Refer to the syllabus for the late submission policy.</li>
+                        <li>Ensure your code includes your name and course in the documentation comment section.</li>
+                        <li>Adhere to best programming practices and use the provided programming template to complete the task.</li>
+                        <li>The rubric table below is used for grading criteria:</li>
+                            <div class="table-container">
+                                <table>
+                                    <tr>
+                                        <th>Points</th>
+                                        <th>Description</th>
+                                    </tr>
+                                    <tr>
+                                        <td>-2 pt</td>
+                                        <td>If failure to complete a single method</td>
+                                    </tr>
+                                    <tr>
+                                        <td>-1 pt</td>
+                                        <td>If failure to call a method</td>
+                                    </tr>
+                                    <tr>
+                                        <td>-1 pt</td>
+                                        <td>If failure to handle files properly</td>
+                                    </tr>
+                                    <tr>
+                                        <td>-1 pt</td>
+                                        <td>If using text-based files other than the provided CSV (Comma-Separated Values) file</td>
+                                    </tr>
+                                </table>
+                            </div>
+                    </ul>
+                </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2024 Oklahoma State University -  Department of Computer Science</p>
+    </footer>
+</body>
+</html>
